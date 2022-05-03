@@ -1,6 +1,9 @@
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render
+from rest_framework import generics
+
 from .models import Book
+from . import serializers
 
 # Create your views here.
 
@@ -18,3 +21,12 @@ def save_file(request):
             'file_url': file_url
         })
     return render(request, 'site_storage/dowload_site.html', {})
+
+
+class BookView(generics.ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = serializers.Bookserializers
+
+class BookDetail(generics.RetrieveAPIView):
+    queryset = Book.objects.all()
+    serializer_class = serializers.Bookserializers
