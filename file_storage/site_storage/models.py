@@ -8,7 +8,7 @@ def user_directory_path(instance, filename):
     return 'user_{0}/{1}'.format(instance.user.id, filename)
 
 class Book(models.Model):
-    user = models.ForeignKey(to=User, null=True, on_delete=models.SET_NULL)
+    user = models.ForeignKey(to=User, null=True, on_delete=models.SET_NULL, default=None)
     title = models.CharField(max_length=150)
     book = models.FileField(upload_to=user_directory_path, null=True, default=None)
     teg = models.ForeignKey(to='TegBook', null=True, default=None, on_delete=models.CASCADE)
