@@ -3,9 +3,12 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
 from rest_framework import generics
+from django.shortcuts import redirect
+# регистрация и вход
 from .forms import LoginForm, UserRegistrationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
+# бд
 from .models import Book, TegBook
 from . import serializers
 
@@ -33,11 +36,14 @@ class user_login(View):
                 if user is not None:
                     if user.is_active:
                         login(request, user)
-                        return HttpResponse('Authenticated successfully')
+                        response = redirect('/save/')
+                        return response
                     else:
-                        return HttpResponse('Disabled account')
+                        response = redirect('/login/')
+                        return response
                 else:
-                    return HttpResponse('Invalid login')
+                    response = redirect('/login/')
+                    return response
         else:
             form = LoginForm()
         return render(request, 'site_storage/login.html', {'form': form})
