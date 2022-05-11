@@ -28,32 +28,27 @@ class BookDetail(generics.RetrieveAPIView):
 
 class user_login(View):
     def post(self, request):
-        if request.method == 'POST':
-            form = LoginForm(request.POST)
-            if form.is_valid():
-                cd = form.cleaned_data
-                user = authenticate(username=cd['username'], password=cd['password'])
-                if user is not None:
-                    if user.is_active:
-                        login(request, user)
-                        response = redirect('/save/')
-                        return response
-                    else:
-                        response = redirect('/login/')
-                        return response
-                else:
-                    response = redirect('/login/')
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            user = authenticate(username=cd['username'], password=cd['password'])
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    response = redirect('/save/')
                     return response
-        else:
-            form = LoginForm()
-        return render(request, 'site_storage/login.html', {'form': form})
+                response = redirect('/login/')
+                return response
+            response = redirect('/login/')
+            return response
 
     def get(self, request):
         form = LoginForm()
         return render(request, 'site_storage/login.html', {'form': form})
 
 
-class save_file(LoginRequiredMixin,View):
+
+class save_file(LoginRequiredMixin, View):
     def post(self, request):
         if request.method == 'POST' and request.FILES:
             file = request.FILES['myfile1']

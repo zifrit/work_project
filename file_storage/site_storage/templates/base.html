@@ -1,13 +1,23 @@
+<!--{% load static %}-->
 <!DOCTYPE html>
 <html>
 <head>
     <title>{% block title %}{% endblock %}</title>
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
 </head>
 <body>
-<div id="header">
-    <span class="logo">Book</span>
+<div id="header" class="grw">
+    <span class="logo">File storage</span>
+    <aside class="main-menu">
+        <ul>
+            <li><a href="/admin">Admin</a></li>
+            <li><a href="{% url 'register'%}">Register</a></li>
+            <li><a href="{% url 'save_file'%}">Save file</a></li>
+            <li><a href="{% url 'login'%}">Log-in</a></li>
+        </ul>
+    </aside>
 </div>
-<div id="content">
+<div id="content" class="test-css">
     {% block content %}
     {% endblock %}
 </div>

@@ -1,16 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Загрузка</title>
-</head>
-<body>
-<p>Загрузка файлов в базу</p>
-<form method="post" enctype="multipart/form-data">
-{% csrf_token %}
-  <input type="file" name="myfile1">
-  <button type="submit">Загрузка</button>
-</form>
-<p>просмотр файла по этой ссылке: <a href="{{ file_url }}">{{ file_url }}</a></p>
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Load-file{% endblock %}
+{% block content %}
+<div class="save_file">
+    <p>Загрузка файлов в базу</p>
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+      <input type="file" name="myfile1">
+      <button type="submit">Загрузка</button>
+    </form>
+    <p>просмотр файла по этой ссылке: <a href="{{ file_url }}">{{ file_url }}</a></p>
+</div>
+{% endblock %}

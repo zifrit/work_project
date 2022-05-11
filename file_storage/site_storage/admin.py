@@ -7,7 +7,7 @@ from .models import Book, TegBook
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'book', 'teg')
-    # search_fields = ('title','id','teg')
+    search_fields = ('title','teg')
     list_editable = ('teg','book','title')
     list_filter = ('teg',)
     pass
